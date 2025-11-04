@@ -1,0 +1,49 @@
+import Dexie, { type EntityTable } from "dexie";
+
+export interface Equipment {
+  id: number;
+  name: string;
+}
+
+export interface Meal {
+  id: number;
+  name: string;
+  date: Date;
+}
+
+export interface Dish {
+  id: number;
+  mealId: number;
+  name: string;
+  course: string;
+  recipeUrl?: string;
+  recipeText?: string;
+}
+
+export interface Step {
+  id: number;
+  mealId: number;
+  dishId: number;
+  priorStepId?: number;
+  description: string;
+  stage: string;
+  equipment: string[];
+  durationMinutes?: number;
+  timerMinutes?: number;
+  startAt?: Date;
+  completedAt?: Date;
+}
+
+export const db = new Dexie("HeardDB") as Dexie & {
+  equipment: EntityTable<Equipment, "id">;
+  meals: EntityTable<Meal, "id">;
+  dishes: EntityTable<Dish, "id">;
+  steps: EntityTable<Step, "id">;
+};
+
+db.version(1).stores({
+  equipment: "++id,&name",
+  meals: "++id,&name",
+  dishes: "++id,mealId",
+  steps: "++id,mealId,dishId,priorStepId,startAt",
+});
