@@ -58,6 +58,7 @@ export default defineConfig([
           alphabetize: { order: "asc", caseInsensitive: true },
         },
       ],
+      "@typescript-eslint/no-explicit-any": "warn",
     }
   },
   {
