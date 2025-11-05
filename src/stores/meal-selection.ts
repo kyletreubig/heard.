@@ -1,15 +1,16 @@
 import { create } from "zustand";
 
+import type { Meal } from "@/db";
 import { createSelectors } from "@/lib/zustand";
 
 interface MealSelectionState {
-  selectedMealId: number | null;
-  setSelectedMealId: (id: number | null) => void;
+  selectedMeal: Meal | null;
+  setSelectedMeal: (meal: Meal | null) => void;
 }
 
 export const useMealSelectionStore = createSelectors(
   create<MealSelectionState>()((set) => ({
-    selectedMealId: null,
-    setSelectedMealId: (id: number | null) => set({ selectedMealId: id }),
+    selectedMeal: null,
+    setSelectedMeal: (meal: Meal | null) => set({ selectedMeal: meal }),
   })),
 );
