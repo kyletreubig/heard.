@@ -9,6 +9,7 @@ import { EditableDate } from "./editable-date";
 import { EditableName } from "./editable-name";
 import { SelectMealButton } from "./select-meal-button";
 import { Button } from "./ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 import {
   Table,
@@ -33,60 +34,85 @@ export function MealList() {
     addMeal({ date: new Date(date), ...inputs }).then(() => form.reset());
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="mb-4 flex gap-2">
-      <Table className="table-auto">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead className="w-32" />
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {meals?.map((meal) => (
-            <TableRow key={meal.id}>
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+      <div className="hidden md:block">
+        <Table className="table-auto">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead className="w-32" />
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {meals?.map((meal) => (
+              <TableRow key={meal.id}>
+                <TableCell>
+                  <EditableName
+                    name={meal.name}
+                    onChange={(newName) =>
+                      updateMeal(meal.id, { name: newName })
+                    }
+                  />
+                </TableCell>
+                <TableCell>
+                  <EditableDate
+                    date={meal.date}
+                    onChange={(newDate) =>
+                      updateMeal(meal.id, { date: newDate })
+                    }
+                  />
+                </TableCell>
+                <TableCell>
+                  <SelectMealButton meal={meal} />
+                </TableCell>
+              </TableRow>
+            ))}
+            <TableRow>
               <TableCell>
-                <EditableName
-                  name={meal.name}
-                  onChange={(newName) => updateMeal(meal.id, { name: newName })}
+                <Input
+                  placeholder="New meal"
+                  {...form.register("name", { required: true })}
                 />
               </TableCell>
               <TableCell>
-                <EditableDate
-                  date={meal.date}
-                  onChange={(newDate) => updateMeal(meal.id, { date: newDate })}
+                <Input
+                  type="datetime-local"
+                  {...form.register("date", { required: true })}
                 />
               </TableCell>
               <TableCell>
-                <SelectMealButton meal={meal} />
+                <Button
+                  className="w-full"
+                  disabled={!form.formState.isDirty || !form.formState.isValid}
+                  type="submit"
+                >
+                  <Plus /> Add
+                </Button>
               </TableCell>
             </TableRow>
-          ))}
-          <TableRow>
-            <TableCell>
-              <Input
-                placeholder="New meal"
-                {...form.register("name", { required: true })}
-              />
-            </TableCell>
-            <TableCell>
-              <Input
-                type="datetime-local"
-                {...form.register("date", { required: true })}
-              />
-            </TableCell>
-            <TableCell>
-              <Button
-                className="w-full"
-                disabled={!form.formState.isDirty || !form.formState.isValid}
-                type="submit"
-              >
-                <Plus /> Add
-              </Button>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
+      </div>
+
+      <div className="md:hidden mt-4 space-y-4">
+        {meals?.map((meal) => (
+          <Card key={meal.id}>
+            <CardHeader>
+              <CardTitle className="text-lg">{meal.name}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <p className="not-prose text-sm text-muted-foreground">Date</p>
+                <p className="not-prose text-base font-medium">
+                  {meal.date.toLocaleString()}
+                </p>
+              </div>
+              <SelectMealButton meal={meal} />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </form>
   );
 }

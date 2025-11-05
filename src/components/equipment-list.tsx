@@ -11,6 +11,7 @@ import type { Equipment } from "@/db";
 import { DeleteEquipmentButton } from "./delete-equipment-button";
 import { EditableName } from "./editable-name";
 import { Button } from "./ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 import {
   Table,
@@ -37,46 +38,63 @@ export function EquipmentList() {
       <h2>Equipment</h2>
 
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Table className="table-auto">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead className="w-32" />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {equipment?.map((item) => (
-              <TableRow key={item.id}>
+        <div className="hidden md:block">
+          <Table className="table-auto">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead className="w-32" />
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {equipment?.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>
+                    <EditableName
+                      name={item.name}
+                      onChange={(newName) => updateEquipment(item.id, newName)}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <DeleteEquipmentButton equipment={item} />
+                  </TableCell>
+                </TableRow>
+              ))}
+              <TableRow>
                 <TableCell>
-                  <EditableName
-                    name={item.name}
-                    onChange={(newName) => updateEquipment(item.id, newName)}
+                  <Input
+                    placeholder="New equipment"
+                    {...form.register("name", { required: true })}
                   />
                 </TableCell>
                 <TableCell>
-                  <DeleteEquipmentButton equipment={item} />
+                  <Button
+                    className="w-full"
+                    disabled={
+                      !form.formState.isDirty || !form.formState.isValid
+                    }
+                    type="submit"
+                  >
+                    <Plus /> Add
+                  </Button>
                 </TableCell>
               </TableRow>
-            ))}
-            <TableRow>
-              <TableCell>
-                <Input
-                  placeholder="New equipment"
-                  {...form.register("name", { required: true })}
-                />
-              </TableCell>
-              <TableCell>
-                <Button
-                  className="w-full"
-                  disabled={!form.formState.isDirty || !form.formState.isValid}
-                  type="submit"
-                >
-                  <Plus /> Add
-                </Button>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+            </TableBody>
+          </Table>
+        </div>
+
+        <div className="md:hidden mt-4 space-y-4">
+          {equipment?.map((item) => (
+            <Card key={item.id}>
+              <CardHeader>
+                <CardTitle className="text-lg">{item.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <DeleteEquipmentButton equipment={item} />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </form>
     </div>
   );

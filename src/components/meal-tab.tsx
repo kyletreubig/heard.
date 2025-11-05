@@ -11,7 +11,7 @@ export function MealTab() {
     <div className="p-4 border rounded shadow">
       {selectedMeal ? (
         <Tabs defaultValue="timeline">
-          <h2 className="flex justify-between items-end">
+          <h2 className="flex flex-col md:flex-row justify-between items-end gap-2">
             <div className="flex items-center gap-2">
               <UnselectMealButton /> {selectedMeal.name}
             </div>

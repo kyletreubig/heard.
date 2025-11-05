@@ -8,7 +8,7 @@ function App() {
       className="container mx-auto flex h-screen flex-col gap-4"
       defaultValue="meals"
     >
-      <div className="flex justify-between items-end">
+      <div className="mx-2 md:mx-0 flex justify-between items-end">
         <h1 className="mt-2 flex items-center gap-2">heard.</h1>
         <TabsList>
           <TabsTrigger value="meals">Meals</TabsTrigger>

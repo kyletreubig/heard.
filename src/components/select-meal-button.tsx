@@ -14,7 +14,7 @@ export function SelectMealButton({ meal }: { meal: Meal }) {
       onClick={() => setSelectedMeal(meal)}
       type="button"
     >
-      Go <ArrowRight />
+      <ArrowRight />
     </Button>
   );
 }
