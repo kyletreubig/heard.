@@ -1,36 +1,26 @@
-import { useState } from "react";
-
-import reactLogo from "./assets/react.svg";
-// eslint-disable-next-line import/no-unresolved
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { EquipmentList } from "./components/equipment-list";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Tabs
+      className="container mx-auto flex h-screen flex-col gap-4"
+      defaultValue="meals"
+    >
+      <div className="flex justify-between items-end">
+        <h1 className="mt-2 flex items-center gap-2">heard.</h1>
+        <TabsList>
+          <TabsTrigger value="meals">Meals</TabsTrigger>
+          <TabsTrigger value="equipment">Equipment</TabsTrigger>
+        </TabsList>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+      <TabsContent value="meals">Meals</TabsContent>
+
+      <TabsContent value="equipment">
+        <EquipmentList />
+      </TabsContent>
+    </Tabs>
   );
 }
 
