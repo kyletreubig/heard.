@@ -1,4 +1,5 @@
 import { EquipmentList } from "./components/equipment-list";
+import { MealTab } from "./components/meal-tab";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 
 function App() {
@@ -15,7 +16,9 @@ function App() {
         </TabsList>
       </div>
 
-      <TabsContent value="meals">Meals</TabsContent>
+      <TabsContent value="meals">
+        <MealTab />
+      </TabsContent>
 
       <TabsContent value="equipment">
         <EquipmentList />

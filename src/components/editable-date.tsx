@@ -1,28 +1,30 @@
 import { useState } from "react";
 
+import { toDatetimeLocalString } from "@/utils/dates";
+
 import { Input } from "./ui/input";
 
-export function EditableName({
-  name,
+export function EditableDate({
+  date,
   onChange,
 }: {
-  name: string;
-  onChange: (newName: string) => void;
+  date: Date;
+  onChange: (newDate: Date) => void;
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [tempName, setTempName] = useState(name);
+  const [tempDate, setTempDate] = useState(date);
 
   const handleBlur = () => {
     setIsEditing(false);
-    if (tempName !== name) {
-      onChange(tempName);
+    if (tempDate.getTime() !== date.getTime()) {
+      onChange(tempDate);
     }
   };
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleBlur();
     } else if (e.key === "Escape") {
-      setTempName(name);
+      setTempDate(date);
       setIsEditing(false);
     }
   };
@@ -31,13 +33,14 @@ export function EditableName({
     <Input
       autoFocus
       onBlur={handleBlur}
-      onChange={(e) => setTempName(e.target.value)}
+      onChange={(e) => setTempDate(new Date(e.target.value))}
       onKeyDown={handleKeyDown}
-      value={tempName}
+      type="datetime-local"
+      value={toDatetimeLocalString(tempDate)}
     />
   ) : (
     <span className="hover:cursor-pointer" onClick={() => setIsEditing(true)}>
-      {name}
+      {date.toLocaleString()}
     </span>
   );
 }
