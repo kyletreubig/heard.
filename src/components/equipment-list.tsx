@@ -87,7 +87,12 @@ export function EquipmentList() {
           {equipment?.map((item) => (
             <Card key={item.id}>
               <CardHeader>
-                <CardTitle className="text-lg">{item.name}</CardTitle>
+                <CardTitle className="text-lg">
+                  <EditableName
+                    name={item.name}
+                    onChange={(newName) => updateEquipment(item.id, newName)}
+                  />
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <DeleteEquipmentButton equipment={item} />
