@@ -1,9 +1,10 @@
 import { Link, Plus } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import { addDish, updateDish, useDishList } from "@/api/dishes";
 import type { Dish, Meal } from "@/db";
 
+import { CourseSelect } from "./course-select";
 import { DishRecipe } from "./dish-recipe";
 import { EditableName } from "./editable-name";
 import { Button } from "./ui/button";
@@ -74,9 +75,16 @@ export function DishList({ meal }: { meal: Meal }) {
                 />
               </TableCell>
               <TableCell className="align-top">
-                <Input
-                  placeholder="Course"
-                  {...form.register("course", { required: true })}
+                <Controller
+                  control={form.control}
+                  name="course"
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <CourseSelect
+                      onValueChange={field.onChange}
+                      value={field.value}
+                    />
+                  )}
                 />
               </TableCell>
               <TableCell>

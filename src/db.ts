@@ -44,6 +44,6 @@ export const db = new Dexie("HeardDB") as Dexie & {
 db.version(1).stores({
   equipment: "++id,&name",
   meals: "++id,&name,date",
-  dishes: "++id,mealId",
+  dishes: "++id,mealId,course",
   steps: "++id,mealId,dishId,priorStepId,startAt",
 });
