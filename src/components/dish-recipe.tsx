@@ -1,5 +1,5 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { Link } from "lucide-react";
+import { Link, NotebookText } from "lucide-react";
 
 import type { Dish } from "@/db";
 
@@ -18,15 +18,15 @@ export function DishRecipe({ dish }: { dish: Dish }) {
       href={dish.recipeUrl}
       target="_blank"
       rel="noreferrer noopener"
-      className="flex items-center gap-2 text-blue-600 underline"
+      className="flex items-center px-3 py-2 gap-2 text-sm font-medium text-blue-600 underline"
     >
-      <Link className="size-4" /> Link
+      <Link className="size-4" /> {dish.recipeUrl.slice(0, 20)}...
     </a>
   ) : dish.recipeText ? (
     <Dialog>
       <DialogTrigger asChild>
         <Button className="w-full justify-start" variant="ghost">
-          {dish.recipeText.slice(0, 20)}...
+          <NotebookText /> {dish.recipeText.slice(0, 20)}...
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -44,6 +44,6 @@ export function DishRecipe({ dish }: { dish: Dish }) {
       </DialogContent>
     </Dialog>
   ) : (
-    <span>N/A</span>
+    <div className="pl-9 py-2">N/A</div>
   );
 }
