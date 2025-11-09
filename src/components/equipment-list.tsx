@@ -94,6 +94,25 @@ export function EquipmentList() {
               </CardContent>
             </Card>
           ))}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Input
+                  placeholder="New equipment"
+                  {...form.register("name", { required: true })}
+                />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Button
+                className="w-full"
+                disabled={!form.formState.isDirty || !form.formState.isValid}
+                type="submit"
+              >
+                <Plus /> Add
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </form>
     </div>
