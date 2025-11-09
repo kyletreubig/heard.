@@ -1,5 +1,6 @@
 import { useMealSelectionStore } from "@/stores/meal-selection";
 
+import { DishList } from "./dish-list";
 import { MealList } from "./meal-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { UnselectMealButton } from "./unselect-meal-button";
@@ -25,7 +26,10 @@ export function MealTab() {
 
           <TabsContent value="timeline">Timeline</TabsContent>
 
-          <TabsContent value="dishes">Dishes</TabsContent>
+          <TabsContent value="dishes">
+            <h3>Dishes</h3>
+            <DishList meal={selectedMeal} />
+          </TabsContent>
         </Tabs>
       ) : (
         <>
