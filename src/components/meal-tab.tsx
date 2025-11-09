@@ -11,14 +11,16 @@ export function MealTab() {
     <div className="p-4 border rounded shadow">
       {selectedMeal ? (
         <Tabs defaultValue="timeline">
-          <h2 className="flex flex-col md:flex-row justify-between items-end gap-2">
+          <h2 className="flex flex-col md:flex-row justify-between items-start gap-2">
             <div className="flex items-center gap-2">
               <UnselectMealButton /> {selectedMeal.name}
             </div>
-            <TabsList>
-              <TabsTrigger value="timeline">Timeline</TabsTrigger>
-              <TabsTrigger value="dishes">Dishes</TabsTrigger>
-            </TabsList>
+            <div className="flex w-full justify-end md:w-auto">
+              <TabsList>
+                <TabsTrigger value="timeline">Timeline</TabsTrigger>
+                <TabsTrigger value="dishes">Dishes</TabsTrigger>
+              </TabsList>
+            </div>
           </h2>
 
           <TabsContent value="timeline">Timeline</TabsContent>
