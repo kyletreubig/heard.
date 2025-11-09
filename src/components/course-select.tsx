@@ -5,11 +5,17 @@ import { useCourseList } from "@/api/courses";
 import { AutoComplete } from "./ui/autocomplete";
 
 export function CourseSelect({
+  autoFocus,
   mealId,
+  onBlur,
+  onKeyDown,
   onValueChange,
   value,
 }: {
+  autoFocus?: boolean;
   mealId?: number;
+  onBlur?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
   onValueChange: (value: string) => void;
   value: string;
 }) {
@@ -30,7 +36,10 @@ export function CourseSelect({
 
   return (
     <AutoComplete
+      autoFocus={autoFocus}
       items={items}
+      onBlur={onBlur}
+      onKeyDown={onKeyDown}
       onSearchValueChange={onValueChange}
       onSelectedValueChange={onValueChange}
       searchValue={value}

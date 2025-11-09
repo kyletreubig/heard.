@@ -24,6 +24,9 @@ type Props<T extends string> = {
   isLoading?: boolean;
   emptyMessage?: string;
   placeholder?: string;
+  autoFocus?: boolean;
+  onBlur?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
 };
 
 export function AutoComplete<T extends string>({
@@ -35,6 +38,9 @@ export function AutoComplete<T extends string>({
   isLoading,
   emptyMessage = "No items.",
   placeholder = "Search...",
+  autoFocus,
+  onBlur,
+  onKeyDown,
 }: Props<T>) {
   const [open, setOpen] = useState(false);
 
@@ -62,6 +68,7 @@ export function AutoComplete<T extends string>({
     ) {
       reset();
     }
+    onBlur?.();
   };
 
   const onSelectItem = (inputValue: string) => {
@@ -82,10 +89,17 @@ export function AutoComplete<T extends string>({
             <CommandPrimitive.Input
               asChild
               value={searchValue}
+              autoFocus={autoFocus}
               onValueChange={onSearchValueChange}
-              onKeyDown={(e) => setOpen(e.key !== "Escape")}
+              onKeyDown={(e) => {
+                setOpen(e.key !== "Escape");
+                onKeyDown?.(e);
+              }}
               onMouseDown={() => setOpen((open) => !!searchValue || !open)}
-              onFocus={() => setOpen(true)}
+              onFocus={(e) => {
+                setOpen(true);
+                e.target.select();
+              }}
               onBlur={onInputBlur}
             >
               <Input placeholder={placeholder} />
