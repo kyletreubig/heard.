@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { Link, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import { addDish, useDishList } from "@/api/dishes";
@@ -6,6 +6,7 @@ import type { Dish, Meal } from "@/db";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
 import {
   Table,
   TableBody,
@@ -14,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+import { Textarea } from "./ui/textarea";
 
 type Inputs = Omit<Dish, "id">;
 
@@ -69,13 +71,13 @@ export function DishList({ meal }: { meal: Meal }) {
             ))}
 
             <TableRow>
-              <TableCell>
+              <TableCell className="align-top">
                 <Input
                   placeholder="New dish"
                   {...form.register("name", { required: true })}
                 />
               </TableCell>
-              <TableCell>
+              <TableCell className="align-top">
                 <Input
                   placeholder="Course"
                   {...form.register("course", { required: true })}
@@ -83,13 +85,23 @@ export function DishList({ meal }: { meal: Meal }) {
               </TableCell>
               <TableCell>
                 <div className="flex flex-col gap-2">
-                  <Input
-                    placeholder="Recipe URL"
-                    {...form.register("recipeUrl")}
+                  <InputGroup>
+                    <InputGroupAddon>
+                      <Link />
+                    </InputGroupAddon>
+                    <InputGroupInput
+                      placeholder="Recipe URL"
+                      {...form.register("recipeUrl")}
+                    />
+                  </InputGroup>
+
+                  <Textarea
+                    placeholder="Recipe..."
+                    {...form.register("recipeText")}
                   />
                 </div>
               </TableCell>
-              <TableCell>
+              <TableCell className="align-top">
                 <Button
                   className="w-full"
                   disabled={!form.formState.isDirty || !form.formState.isValid}
