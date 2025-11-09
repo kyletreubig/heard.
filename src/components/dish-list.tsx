@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { addDish, useDishList } from "@/api/dishes";
 import type { Dish, Meal } from "@/db";
 
+import { DishRecipe } from "./dish-recipe";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
@@ -51,20 +52,7 @@ export function DishList({ meal }: { meal: Meal }) {
                 <TableCell>{dish.name}</TableCell>
                 <TableCell>{dish.course}</TableCell>
                 <TableCell>
-                  {dish.recipeUrl ? (
-                    <a
-                      href={dish.recipeUrl}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="text-blue-600 underline"
-                    >
-                      Link
-                    </a>
-                  ) : dish.recipeText ? (
-                    <span>Text</span>
-                  ) : (
-                    <span>N/A</span>
-                  )}
+                  <DishRecipe dish={dish} />
                 </TableCell>
                 <TableCell></TableCell>
               </TableRow>
