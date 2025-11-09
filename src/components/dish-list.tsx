@@ -1,10 +1,11 @@
 import { Link, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 
-import { addDish, useDishList } from "@/api/dishes";
+import { addDish, updateDish, useDishList } from "@/api/dishes";
 import type { Dish, Meal } from "@/db";
 
 import { DishRecipe } from "./dish-recipe";
+import { EditableName } from "./editable-name";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
@@ -49,7 +50,14 @@ export function DishList({ meal }: { meal: Meal }) {
           <TableBody>
             {dishes?.map((dish) => (
               <TableRow key={dish.id}>
-                <TableCell>{dish.name}</TableCell>
+                <TableCell>
+                  <EditableName
+                    name={dish.name}
+                    onChange={(newName) =>
+                      updateDish(dish.id, { name: newName })
+                    }
+                  />
+                </TableCell>
                 <TableCell>{dish.course}</TableCell>
                 <TableCell>
                   <DishRecipe dish={dish} />
