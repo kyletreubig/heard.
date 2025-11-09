@@ -8,6 +8,7 @@ import { CourseSelect } from "./course-select";
 import { DishRecipe } from "./dish-recipe";
 import { EditableName } from "./editable-name";
 import { Button } from "./ui/button";
+import { CourseBadge } from "./ui/course-badge";
 import { Input } from "./ui/input";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
 import {
@@ -59,7 +60,9 @@ export function DishList({ meal }: { meal: Meal }) {
                     }
                   />
                 </TableCell>
-                <TableCell>{dish.course}</TableCell>
+                <TableCell>
+                  <CourseBadge course={dish.course} />
+                </TableCell>
                 <TableCell>
                   <DishRecipe dish={dish} />
                 </TableCell>
