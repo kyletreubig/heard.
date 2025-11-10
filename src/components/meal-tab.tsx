@@ -27,7 +27,6 @@ export function MealTab() {
           <TabsContent value="timeline">Timeline</TabsContent>
 
           <TabsContent value="dishes">
-            <h3>Dishes</h3>
             <DishList meal={selectedMeal} />
           </TabsContent>
         </Tabs>

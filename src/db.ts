@@ -41,7 +41,7 @@ export const db = new Dexie("HeardDB") as Dexie & {
   steps: EntityTable<Step, "id">;
 };
 
-db.version(1).stores({
+db.version(2).stores({
   equipment: "++id,&name",
   meals: "++id,&name,date",
   dishes: "++id,mealId,course",
