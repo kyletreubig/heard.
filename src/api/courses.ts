@@ -3,7 +3,8 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/db";
 
 export function useCourseList(mealId?: number) {
-  return useLiveQuery(() => {
+  return useLiveQuery(async () => {
+    if ((await db.dishes.count()) === 0) return [];
     if (mealId === undefined) {
       return db.dishes.orderBy("course").uniqueKeys((keys) => keys as string[]);
     }
