@@ -11,6 +11,14 @@ import { DishRecipe } from "./dish-recipe";
 import { EditableCourse } from "./editable-course";
 import { EditableName } from "./editable-name";
 import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import { Input } from "./ui/input";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
 import {
@@ -151,6 +159,88 @@ export function DishList({ meal }: { meal: Meal }) {
               </TableRow>
             </TableBody>
           </Table>
+        </div>
+
+        <div className="md:hidden mt-4 space-y-4">
+          {dishes?.map((dish) => (
+            <Card key={dish.id}>
+              <CardHeader>
+                <CardTitle className="text-lg">
+                  <EditableName
+                    name={dish.name}
+                    onChange={(newName) =>
+                      updateDish(dish.id, { name: newName })
+                    }
+                  />
+                </CardTitle>
+                <CardDescription>
+                  <EditableCourse
+                    course={dish.course}
+                    onChange={(newCourse) =>
+                      updateDish(dish.id, { course: newCourse })
+                    }
+                  />
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <DishRecipe dish={dish} />
+              </CardContent>
+              <CardFooter>
+                <DeleteDishButton dish={dish} />
+              </CardFooter>
+            </Card>
+          ))}
+
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Input
+                  placeholder="New dish"
+                  {...form.register("name", { required: true })}
+                />
+              </CardTitle>
+              <CardDescription>
+                <Controller
+                  control={form.control}
+                  name="course"
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <CourseSelect
+                      onValueChange={field.onChange}
+                      value={field.value}
+                    />
+                  )}
+                />
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-2">
+                <InputGroup>
+                  <InputGroupAddon>
+                    <Link />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    placeholder="Recipe URL"
+                    {...form.register("recipeUrl")}
+                  />
+                </InputGroup>
+
+                <Textarea
+                  placeholder="Recipe..."
+                  {...form.register("recipeText")}
+                />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button
+                className="w-full"
+                disabled={!form.formState.isDirty || !form.formState.isValid}
+                type="submit"
+              >
+                <Plus /> Add
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
       </form>
     </>
