@@ -5,6 +5,7 @@ import { addDish, updateDish, useDishList } from "@/api/dishes";
 import type { Dish, Meal } from "@/db";
 
 import { CourseSelect } from "./course-select";
+import { DeleteDishButton } from "./delete-dish-button";
 import { DishRecipe } from "./dish-recipe";
 import { EditableCourse } from "./editable-course";
 import { EditableName } from "./editable-name";
@@ -71,7 +72,9 @@ export function DishList({ meal }: { meal: Meal }) {
                 <TableCell>
                   <DishRecipe dish={dish} />
                 </TableCell>
-                <TableCell></TableCell>
+                <TableCell>
+                  <DeleteDishButton dish={dish} />
+                </TableCell>
               </TableRow>
             ))}
 
