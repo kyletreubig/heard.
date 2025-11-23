@@ -10,6 +10,7 @@ import { DeleteDishButton } from "./delete-dish-button";
 import { DishRecipe } from "./dish-recipe";
 import { EditableCourse } from "./editable-course";
 import { EditableName } from "./editable-name";
+import { SelectDishButton } from "./select-dish-button";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -57,7 +58,10 @@ export function DishCardList({
               <DishRecipe dish={dish} />
             </CardContent>
             <CardFooter>
-              <DeleteDishButton dish={dish} />
+              <div className="flex gap-2 w-full">
+                <DeleteDishButton className="grow" dish={dish} />
+                <SelectDishButton className="grow" dish={dish} />
+              </div>
             </CardFooter>
           </Card>
         ))}

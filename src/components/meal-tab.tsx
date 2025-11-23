@@ -1,16 +1,25 @@
+import { useDishSelectionStore } from "@/stores/dish-selection";
 import { useMealSelectionStore } from "@/stores/meal-selection";
 
 import { DishList } from "./dish-list";
 import { MealList } from "./meal-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { UnselectDishButton } from "./unselect-dish-button";
 import { UnselectMealButton } from "./unselect-meal-button";
 
 export function MealTab() {
   const selectedMeal = useMealSelectionStore.use.selectedMeal();
+  const selectedDish = useDishSelectionStore.use.selectedDish();
 
   return (
     <div className="p-4 border rounded shadow">
-      {selectedMeal ? (
+      {selectedDish ? (
+        <h2 className="flex flex-col md:flex-row justify-between items-start gap-2">
+          <div className="flex items-center gap-2">
+            <UnselectDishButton /> {selectedDish.name}
+          </div>
+        </h2>
+      ) : selectedMeal ? (
         <Tabs defaultValue="timeline">
           <h2 className="flex flex-col md:flex-row justify-between items-start gap-2">
             <div className="flex items-center gap-2">

@@ -1,6 +1,7 @@
+import { Trash2 } from "lucide-react";
+
 import { deleteDish } from "@/api/dishes";
 import type { Dish } from "@/db";
-import { cn } from "@/lib/utils";
 
 import {
   AlertDialog,
@@ -27,8 +28,8 @@ export function DeleteDishButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className={cn("w-full", className)} variant="outline">
-          Delete
+        <Button className={className} variant="outline">
+          <Trash2 /> Delete
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

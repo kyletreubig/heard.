@@ -10,6 +10,7 @@ import { DeleteDishButton } from "./delete-dish-button";
 import { DishRecipe } from "./dish-recipe";
 import { EditableCourse } from "./editable-course";
 import { EditableName } from "./editable-name";
+import { SelectDishButton } from "./select-dish-button";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
@@ -40,7 +41,7 @@ export function DishTable({
             <TableHead>Name</TableHead>
             <TableHead>Course</TableHead>
             <TableHead>Recipe</TableHead>
-            <TableHead className="w-32" />
+            <TableHead className="w-56" />
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -64,7 +65,10 @@ export function DishTable({
                 <DishRecipe dish={dish} />
               </TableCell>
               <TableCell>
-                <DeleteDishButton dish={dish} />
+                <div className="flex gap-2">
+                  <DeleteDishButton className="grow" dish={dish} />
+                  <SelectDishButton className="grow" dish={dish} />
+                </div>
               </TableCell>
             </TableRow>
           ))}
