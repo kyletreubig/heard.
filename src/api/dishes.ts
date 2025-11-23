@@ -18,5 +18,8 @@ export function updateDish(id: number, changes: Partial<Omit<Dish, "id">>) {
 }
 
 export function deleteDish(id: number) {
-  return db.dishes.delete(id);
+  return db.transaction("rw", db.dishes, db.steps, async () => {
+    await db.steps.where("dishId").equals(id).delete();
+    return await db.dishes.delete(id);
+  });
 }

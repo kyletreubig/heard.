@@ -28,8 +28,8 @@ export interface Step {
   description: string;
   stage: string;
   equipment: string[];
+  offsetMinutes?: number;
   durationMinutes?: number;
-  timerMinutes?: number;
   startAt?: Date;
   completedAt?: Date;
 }
