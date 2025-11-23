@@ -72,12 +72,8 @@ export function AutoComplete<T extends string>({
   };
 
   const onSelectItem = (inputValue: string) => {
-    if (inputValue === selectedValue) {
-      reset();
-    } else {
-      onSelectedValueChange(inputValue as T);
-      onSearchValueChange(labels[inputValue] ?? "");
-    }
+    onSelectedValueChange(inputValue as T);
+    onSearchValueChange(labels[inputValue] ?? "");
     setOpen(false);
   };
 
