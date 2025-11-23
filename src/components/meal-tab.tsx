@@ -1,4 +1,8 @@
 import { useDishSelectionStore } from "@/stores/dish-selection";
+import {
+  useDishTabSelectionStore,
+  type DishTabType,
+} from "@/stores/dish-tab-selection";
 import { useMealSelectionStore } from "@/stores/meal-selection";
 import {
   useMealTabSelectionStore,
@@ -15,21 +19,39 @@ export function MealTab() {
   const selectedMeal = useMealSelectionStore.use.selectedMeal();
   const selectedDish = useDishSelectionStore.use.selectedDish();
 
-  const selectedTab = useMealTabSelectionStore.use.selectedTab();
-  const setSelectedTab = useMealTabSelectionStore.use.setSelectedTab();
+  const selectedMealTab = useMealTabSelectionStore.use.selectedTab();
+  const setSelectedMealTab = useMealTabSelectionStore.use.setSelectedTab();
+
+  const selectedDishTab = useDishTabSelectionStore.use.selectedTab();
+  const setSelectedDishTab = useDishTabSelectionStore.use.setSelectedTab();
 
   return (
     <div className="p-4 border rounded shadow">
       {selectedDish ? (
-        <h2 className="flex flex-col md:flex-row justify-between items-start gap-2">
-          <div className="flex items-center gap-2">
-            <UnselectDishButton /> {selectedDish.name}
-          </div>
-        </h2>
+        <Tabs
+          onValueChange={(t) => setSelectedDishTab(t as DishTabType)}
+          value={selectedDishTab}
+        >
+          <h2 className="flex flex-col md:flex-row justify-between items-start gap-2">
+            <div className="flex items-center gap-2">
+              <UnselectDishButton /> {selectedDish.name}
+            </div>
+            <div className="flex w-full justify-end md:w-auto">
+              <TabsList>
+                <TabsTrigger value="steps">Steps</TabsTrigger>
+                <TabsTrigger value="recipe">Recipe</TabsTrigger>
+              </TabsList>
+            </div>
+          </h2>
+
+          <TabsContent value="steps">Steps list</TabsContent>
+
+          <TabsContent value="recipe">Recipe</TabsContent>
+        </Tabs>
       ) : selectedMeal ? (
         <Tabs
-          onValueChange={(t) => setSelectedTab(t as MealTabType)}
-          value={selectedTab}
+          onValueChange={(t) => setSelectedMealTab(t as MealTabType)}
+          value={selectedMealTab}
         >
           <h2 className="flex flex-col md:flex-row justify-between items-start gap-2">
             <div className="flex items-center gap-2">
