@@ -27,7 +27,7 @@ export function DeleteEquipmentButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className={cn("w-full", className)} variant="destructive">
+        <Button className={cn("w-full", className)} variant="outline">
           Delete
         </Button>
       </AlertDialogTrigger>
@@ -40,7 +40,9 @@ export function DeleteEquipmentButton({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>No</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>Yes</AlertDialogAction>
+          <AlertDialogAction onClick={handleDelete} variant="destructive">
+            Yes
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
