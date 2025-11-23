@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { NotebookPen } from "lucide-react";
 
 import type { Dish } from "@/db";
 import { useDishSelectionStore } from "@/stores/dish-selection";
@@ -6,7 +6,7 @@ import { useDishTabSelectionStore } from "@/stores/dish-tab-selection";
 
 import { Button } from "./ui/button";
 
-export function SelectDishButton({
+export function SelectDishRecipeButton({
   className,
   dish,
 }: {
@@ -17,13 +17,18 @@ export function SelectDishButton({
   const setSelectedDishTab = useDishTabSelectionStore.use.setSelectedTab();
 
   const handleClick = () => {
-    setSelectedDishTab("steps");
+    setSelectedDishTab("recipe");
     setSelectedDish(dish);
   };
 
   return (
-    <Button className={className} onClick={handleClick} type="button">
-      <ArrowRight /> Steps
+    <Button
+      className={className}
+      onClick={handleClick}
+      type="button"
+      variant="outline"
+    >
+      <NotebookPen /> Edit
     </Button>
   );
 }
