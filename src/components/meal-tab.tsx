@@ -1,5 +1,9 @@
 import { useDishSelectionStore } from "@/stores/dish-selection";
 import { useMealSelectionStore } from "@/stores/meal-selection";
+import {
+  useMealTabSelectionStore,
+  type MealTabType,
+} from "@/stores/meal-tab-selection";
 
 import { DishList } from "./dish-list";
 import { MealList } from "./meal-list";
@@ -11,6 +15,9 @@ export function MealTab() {
   const selectedMeal = useMealSelectionStore.use.selectedMeal();
   const selectedDish = useDishSelectionStore.use.selectedDish();
 
+  const selectedTab = useMealTabSelectionStore.use.selectedTab();
+  const setSelectedTab = useMealTabSelectionStore.use.setSelectedTab();
+
   return (
     <div className="p-4 border rounded shadow">
       {selectedDish ? (
@@ -20,7 +27,10 @@ export function MealTab() {
           </div>
         </h2>
       ) : selectedMeal ? (
-        <Tabs defaultValue="timeline">
+        <Tabs
+          onValueChange={(t) => setSelectedTab(t as MealTabType)}
+          value={selectedTab}
+        >
           <h2 className="flex flex-col md:flex-row justify-between items-start gap-2">
             <div className="flex items-center gap-2">
               <UnselectMealButton /> {selectedMeal.name}
