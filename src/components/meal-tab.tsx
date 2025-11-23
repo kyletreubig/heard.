@@ -10,6 +10,7 @@ import {
 } from "@/stores/meal-tab-selection";
 
 import { DishList } from "./dish-list";
+import { DishRecipeTab } from "./dish-recipe-tab";
 import { MealList } from "./meal-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { UnselectDishButton } from "./unselect-dish-button";
@@ -46,7 +47,9 @@ export function MealTab() {
 
           <TabsContent value="steps">Steps list</TabsContent>
 
-          <TabsContent value="recipe">Recipe</TabsContent>
+          <TabsContent value="recipe">
+            <DishRecipeTab dish={selectedDish} />
+          </TabsContent>
         </Tabs>
       ) : selectedMeal ? (
         <Tabs
