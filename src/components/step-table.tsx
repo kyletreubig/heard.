@@ -12,6 +12,7 @@ import { EditableName } from "./editable-name";
 import { EditableStage } from "./editable-stage";
 import { EquipmentSelect } from "./equipment-select";
 import { StageSelect } from "./stage-select";
+import { StepBadge } from "./step-badge";
 import { StepSelect } from "./step-select";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -64,7 +65,7 @@ export function StepTable({
                   {step.priorStepId && (
                     <>
                       <span>after</span>
-                      <span>{step.priorStepId}</span>
+                      <StepBadge id={step.priorStepId} />
                     </>
                   )}
                   {step.durationMinutes > 0 && (

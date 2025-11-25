@@ -22,7 +22,7 @@ export function StepSelect({
   placeholder?: string;
   value: number | null;
 }) {
-  const stepList = useDishStepList(dishId);
+  const stepList = useDishStepList(dishId, true);
 
   const clearSelect = useId();
   const handleSelect = (selectedValue: string) => {

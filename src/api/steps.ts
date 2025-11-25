@@ -3,11 +3,14 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db, type Step } from "@/db";
 import { updateDishTimeline } from "@/utils/timeline";
 
-export function useDishStepList(dishId: number) {
-  return useLiveQuery(
-    () => db.steps.where("dishId").equals(dishId).sortBy("startAt"),
-    [dishId],
-  );
+export function useDishStepList(dishId: number, reverse: boolean = false) {
+  return useLiveQuery(() => {
+    let query = db.steps.where("dishId").equals(dishId);
+    if (reverse) {
+      query = query.reverse();
+    }
+    return query.sortBy("startAt");
+  }, [dishId]);
 }
 
 export function useMealStepList(mealId: number) {
@@ -15,6 +18,10 @@ export function useMealStepList(mealId: number) {
     () => db.steps.where("mealId").equals(mealId).sortBy("startAt"),
     [mealId],
   );
+}
+
+export function useStep(stepId: number) {
+  return useLiveQuery(() => db.steps.get(stepId), [stepId]);
 }
 
 export function addStep(step: Omit<Step, "id">) {
