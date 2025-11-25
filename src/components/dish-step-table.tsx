@@ -31,7 +31,7 @@ import {
   TableRow,
 } from "./ui/table";
 
-export function StepTable({
+export function DishStepTable({
   dishId,
   mealId,
   steps,
