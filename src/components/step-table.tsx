@@ -10,9 +10,9 @@ import { DeleteStepButton } from "./delete-step-button";
 import { EditableEquipment } from "./editable-equipment";
 import { EditableName } from "./editable-name";
 import { EditableStage } from "./editable-stage";
+import { EditableStepTiming } from "./editable-step-timing";
 import { EquipmentSelect } from "./equipment-select";
 import { StageSelect } from "./stage-select";
-import { StepBadge } from "./step-badge";
 import { StepSelect } from "./step-select";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -61,26 +61,13 @@ export function StepTable({
             <TableRow key={step.id}>
               <TableCell>{step.startAt?.toLocaleTimeString()}</TableCell>
               <TableCell>
-                <div className="grid grid-cols-[auto_1fr] gap-2 items-center">
-                  {step.priorStepId && (
-                    <>
-                      <span>after</span>
-                      <StepBadge id={step.priorStepId} />
-                    </>
-                  )}
-                  {step.durationMinutes > 0 && (
-                    <>
-                      <span>for</span>
-                      <span>{step.durationMinutes} minutes</span>
-                    </>
-                  )}
-                  {step.delayMinutes > 0 && (
-                    <>
-                      <span>then wait</span>
-                      <span>{step.delayMinutes} minutes</span>
-                    </>
-                  )}
-                </div>
+                <EditableStepTiming
+                  delayMinutes={step.delayMinutes}
+                  dishId={step.dishId}
+                  durationMinutes={step.durationMinutes}
+                  onChange={(changes) => updateStep(step.id, changes)}
+                  priorStepId={step.priorStepId}
+                />
               </TableCell>
               <TableCell>
                 <EditableName
