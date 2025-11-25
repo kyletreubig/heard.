@@ -2,10 +2,13 @@ import { Minus, Plus } from "lucide-react";
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 
+import { updateStep } from "@/api/steps";
 import type { Step } from "@/db";
 import { useNewStepForm } from "@/hooks/use-step-form";
 
 import { DeleteStepButton } from "./delete-step-button";
+import { EditableName } from "./editable-name";
+import { EditableStage } from "./editable-stage";
 import { EquipmentSelect } from "./equipment-select";
 import { StageSelect } from "./stage-select";
 import { StepSelect } from "./step-select";
@@ -77,8 +80,22 @@ export function StepTable({
                   )}
                 </div>
               </TableCell>
-              <TableCell>{step.description}</TableCell>
-              <TableCell>{step.stage}</TableCell>
+              <TableCell>
+                <EditableName
+                  name={step.description}
+                  onChange={(newDescription) =>
+                    updateStep(step.id, { description: newDescription })
+                  }
+                />
+              </TableCell>
+              <TableCell>
+                <EditableStage
+                  onChange={(newStage) =>
+                    updateStep(step.id, { stage: newStage })
+                  }
+                  stage={step.stage}
+                />
+              </TableCell>
               <TableCell>{step.equipment}</TableCell>
               <TableCell>
                 <DeleteStepButton className="w-full" step={step} />
