@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { getColorFromString, getContrastingTextColor } from "@/utils/colors";
 
-import { Badge } from "./badge";
+import { Badge } from "./ui/badge";
 
 export function CourseBadge({ course }: { course: string }) {
   const background = useMemo(() => getColorFromString(course), [course]);

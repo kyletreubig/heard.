@@ -1,7 +1,7 @@
 import { useState } from "react";
 
+import { CourseBadge } from "./course-badge";
 import { CourseSelect } from "./course-select";
-import { CourseBadge } from "./ui/course-badge";
 
 export function EditableCourse({
   course,
