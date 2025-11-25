@@ -7,6 +7,7 @@ import type { Step } from "@/db";
 import { useNewStepForm } from "@/hooks/use-step-form";
 
 import { DeleteStepButton } from "./delete-step-button";
+import { EditableEquipment } from "./editable-equipment";
 import { EditableName } from "./editable-name";
 import { EditableStage } from "./editable-stage";
 import { EquipmentSelect } from "./equipment-select";
@@ -96,7 +97,14 @@ export function StepTable({
                   stage={step.stage}
                 />
               </TableCell>
-              <TableCell>{step.equipment}</TableCell>
+              <TableCell>
+                <EditableEquipment
+                  equipment={step.equipment}
+                  onChange={(newEquipment) =>
+                    updateStep(step.id, { equipment: newEquipment })
+                  }
+                />
+              </TableCell>
               <TableCell>
                 <DeleteStepButton className="w-full" step={step} />
               </TableCell>
@@ -173,13 +181,19 @@ export function StepTable({
                       render={({ field }) => (
                         <EquipmentSelect
                           onValueChange={field.onChange}
+                          placeholder="None"
                           value={field.value}
                         />
                       )}
                     />
                     <Button
-                      disabled={equipment.fields.length === 1}
-                      onClick={() => equipment.remove(index)}
+                      onClick={() => {
+                        if (equipment.fields.length === 1) {
+                          equipment.update(index, { name: "" });
+                        } else {
+                          equipment.remove(index);
+                        }
+                      }}
                       size="icon"
                       variant="outline"
                     >
