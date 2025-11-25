@@ -1,6 +1,7 @@
 import { useDishStepList } from "@/api/steps";
 import type { Dish } from "@/db";
 
+import { DishStepCardList } from "./dish-step-card-list";
 import { DishStepTable } from "./dish-step-table";
 
 export function DishStepList({ dish }: { dish: Dish }) {
@@ -14,7 +15,9 @@ export function DishStepList({ dish }: { dish: Dish }) {
         <DishStepTable dishId={dish.id} mealId={dish.mealId} steps={steps} />
       </div>
 
-      <div className="md:hidden mt-4">Step cards</div>
+      <div className="md:hidden mt-4">
+        <DishStepCardList dishId={dish.id} mealId={dish.mealId} steps={steps} />
+      </div>
     </>
   );
 }
