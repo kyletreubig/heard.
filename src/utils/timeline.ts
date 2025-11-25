@@ -1,5 +1,7 @@
 import { db, type Step } from "@/db";
 
+import { ensureInt } from "./numbers";
+
 export async function updateMealTimeline(mealId: number) {
   const meal = await db.meals.get(mealId);
   if (!meal) return;
@@ -22,36 +24,44 @@ export async function updateDishTimeline(dishId: number, mealDate?: Date) {
   const steps = await db.steps.where("dishId").equals(dishId).toArray();
   const stepMap = new Map(steps.map((step) => [step.id, step]));
 
-  // Sort steps by priorStepId to establish order
-  const orderedSteps: Step[] = [];
   const visited = new Set<number>();
-
-  function visit(step: Step) {
+  function visit(step: Step, time: Date) {
+    // Prevent cycles
     if (visited.has(step.id)) return;
+    visited.add(step.id);
+
+    // Calculate startAt time for this step
+    const startAt = new Date(time);
+    const offsetMinutes =
+      ensureInt(step.durationMinutes) +
+      ensureInt(step.delayMinutes) +
+      ensureInt(step.offsetMinutes);
+    startAt.setMinutes(startAt.getMinutes() - offsetMinutes);
+    console.log(
+      step.id,
+      step.priorStepId,
+      step.description,
+      time,
+      offsetMinutes,
+      startAt,
+    );
+    step.startAt = new Date(startAt);
+    db.steps.update(step.id, { startAt: step.startAt });
+
+    // Continue with prior steps, if any
     if (step.priorStepId) {
       const priorStep = stepMap.get(step.priorStepId);
       if (priorStep) {
-        visit(priorStep);
+        visit(priorStep, startAt);
       }
     }
-    visited.add(step.id);
-    orderedSteps.push(step);
   }
 
-  for (const step of steps) {
-    visit(step);
-  }
-
-  // Reverse the steps to work backwards
-  orderedSteps.reverse();
-
-  // Update startAt times based on order and durations
-  const currentTime = mealDate;
-  for (const step of orderedSteps) {
-    const offsetMinutes =
-      (step.durationMinutes ?? 0) - (step.offsetMinutes ?? 0);
-    currentTime.setMinutes(currentTime.getMinutes() - offsetMinutes);
-    step.startAt = new Date(currentTime);
-    await db.steps.update(step.id, { startAt: step.startAt });
+  // Start with all steps that do not have any steps dependent on them (i.e., final steps)
+  const finalSteps = steps.filter((step) => {
+    return !steps.some((s) => s.priorStepId === step.id);
+  });
+  for (const step of finalSteps) {
+    visit(step, mealDate);
   }
 }

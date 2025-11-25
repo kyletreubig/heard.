@@ -5,7 +5,7 @@ import { updateDishTimeline } from "@/utils/timeline";
 
 export function useDishStepList(dishId: number) {
   return useLiveQuery(
-    () => db.steps.where("dishId").equals(dishId).toArray(),
+    () => db.steps.where("dishId").equals(dishId).sortBy("startAt"),
     [dishId],
   );
 }

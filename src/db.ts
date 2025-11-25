@@ -24,12 +24,13 @@ export interface Step {
   id: number;
   mealId: number;
   dishId: number;
-  priorStepId?: number;
+  priorStepId: number | null;
   description: string;
   stage: string;
   equipment: string[];
-  offsetMinutes?: number;
-  durationMinutes?: number;
+  offsetMinutes: number;
+  delayMinutes: number;
+  durationMinutes: number;
   startAt?: Date;
   completedAt?: Date;
 }
@@ -41,9 +42,9 @@ export const db = new Dexie("HeardDB") as Dexie & {
   steps: EntityTable<Step, "id">;
 };
 
-db.version(2).stores({
+db.version(3).stores({
   equipment: "++id,&name",
   meals: "++id,&name,date",
   dishes: "++id,mealId,course",
-  steps: "++id,mealId,dishId,priorStepId,startAt",
+  steps: "++id,mealId,dishId,priorStepId,stage,startAt",
 });

@@ -84,6 +84,7 @@ export function AutoComplete<T extends string>({
           <PopoverAnchor asChild>
             <CommandPrimitive.Input
               asChild
+              className="min-w-42"
               value={searchValue}
               autoFocus={autoFocus}
               onValueChange={onSearchValueChange}

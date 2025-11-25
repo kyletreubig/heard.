@@ -12,7 +12,7 @@ export function addMeal(meal: Omit<Meal, "id">) {
 }
 
 export function updateMeal(id: number, changes: Partial<Omit<Meal, "id">>) {
-  return db.transaction("rw", db.meals, db.steps, async () => {
+  return db.transaction("rw", db.meals, db.dishes, db.steps, async () => {
     const response = await db.meals.update(id, changes);
     await updateMealTimeline(id);
     return response;

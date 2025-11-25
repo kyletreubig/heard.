@@ -11,6 +11,7 @@ import {
 
 import { DishList } from "./dish-list";
 import { DishRecipeTab } from "./dish-recipe-tab";
+import { DishStepList } from "./dish-step-list";
 import { MealList } from "./meal-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { UnselectDishButton } from "./unselect-dish-button";
@@ -45,7 +46,9 @@ export function MealTab() {
             </div>
           </h2>
 
-          <TabsContent value="steps">Steps list</TabsContent>
+          <TabsContent value="steps">
+            <DishStepList dish={selectedDish} />
+          </TabsContent>
 
           <TabsContent value="recipe">
             <DishRecipeTab dish={selectedDish} />

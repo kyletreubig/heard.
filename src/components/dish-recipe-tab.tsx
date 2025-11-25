@@ -12,6 +12,7 @@ export function DishRecipeTab({ dish }: { dish: Dish }) {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-2">
+        <h3>Edit Recipe</h3>
         <InputGroup>
           <InputGroupAddon>
             <Link />
