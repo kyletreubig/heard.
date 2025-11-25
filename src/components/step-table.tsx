@@ -5,6 +5,7 @@ import { Controller, useFieldArray } from "react-hook-form";
 import type { Step } from "@/db";
 import { useNewStepForm } from "@/hooks/use-step-form";
 
+import { DeleteStepButton } from "./delete-step-button";
 import { EquipmentSelect } from "./equipment-select";
 import { StageSelect } from "./stage-select";
 import { StepSelect } from "./step-select";
@@ -79,7 +80,9 @@ export function StepTable({
               <TableCell>{step.description}</TableCell>
               <TableCell>{step.stage}</TableCell>
               <TableCell>{step.equipment}</TableCell>
-              <TableCell></TableCell>
+              <TableCell>
+                <DeleteStepButton className="w-full" step={step} />
+              </TableCell>
             </TableRow>
           ))}
 
