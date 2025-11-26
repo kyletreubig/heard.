@@ -6,6 +6,7 @@ import type { Meal } from "@/db";
 import { useTimelineFiltersStore } from "@/stores/timeline-filters";
 import { filterTimeline } from "@/utils/timeline";
 
+import { MealTimelineCardList } from "./meal-timeline-card-list";
 import { MealTimelineTable } from "./meal-timeline-table";
 import { TimelineFilters } from "./timeline-filters";
 import { Button } from "./ui/button";
@@ -42,6 +43,10 @@ export function MealTimeline({ meal }: { meal: Meal }) {
 
       <div className="hidden md:block">
         <MealTimelineTable steps={filteredSteps} />
+      </div>
+
+      <div className="md:hidden mt-4">
+        <MealTimelineCardList steps={filteredSteps} />
       </div>
     </Collapsible>
   );
