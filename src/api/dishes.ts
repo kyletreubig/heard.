@@ -9,6 +9,10 @@ export function useDishList(mealId: number) {
   );
 }
 
+export function useDish(dishId: number) {
+  return useLiveQuery(() => db.dishes.get(dishId), [dishId]);
+}
+
 export function addDish(dish: Omit<Dish, "id">) {
   return db.dishes.add(dish);
 }
