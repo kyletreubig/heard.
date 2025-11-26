@@ -151,6 +151,7 @@ export function DishStepTable({
               <Controller
                 control={form.control}
                 name="stage"
+                rules={{ required: true }}
                 render={({ field }) => (
                   <StageSelect
                     onValueChange={field.onChange}

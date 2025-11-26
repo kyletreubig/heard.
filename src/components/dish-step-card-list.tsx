@@ -101,6 +101,7 @@ export function DishStepCardList({
               <Controller
                 control={form.control}
                 name="stage"
+                rules={{ required: true }}
                 render={({ field }) => (
                   <StageSelect
                     onValueChange={field.onChange}

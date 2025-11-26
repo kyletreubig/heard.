@@ -114,6 +114,12 @@ export function EditableStepTiming({
           <span>{delayMinutes} minutes</span>
         </>
       )}
+
+      {!priorStepId && !durationMinutes && !delayMinutes && (
+        <>
+          <span>At meal time</span>
+        </>
+      )}
     </div>
   );
 }
