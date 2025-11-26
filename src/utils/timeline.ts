@@ -1,4 +1,5 @@
 import { db, type Step } from "@/db";
+import type { TimelineFilterValues } from "@/stores/timeline-filters";
 
 import { ensureInt } from "./numbers";
 
@@ -64,4 +65,30 @@ export async function updateDishTimeline(dishId: number, mealDate?: Date) {
   for (const step of finalSteps) {
     visit(step, mealDate);
   }
+}
+
+export function filterTimeline(
+  steps: Step[],
+  filters: TimelineFilterValues,
+): Step[] {
+  return steps.filter((step) => {
+    if (filters.completed !== null) {
+      if (filters.completed && !step.completedAt) return false;
+      else if (!filters.completed && step.completedAt) return false;
+    }
+
+    if (filters.dishId !== null) {
+      if (filters.dishId !== step.dishId) return false;
+    }
+
+    if (filters.stage !== null) {
+      if (filters.stage !== step.stage) return false;
+    }
+
+    if (filters.equipment !== null) {
+      if (!step.equipment.some((e) => e === filters.equipment)) return false;
+    }
+
+    return true;
+  });
 }

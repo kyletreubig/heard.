@@ -1,8 +1,10 @@
 import { ChevronDown, ChevronRight, Filter } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useMealStepList } from "@/api/steps";
 import type { Meal } from "@/db";
+import { useTimelineFiltersStore } from "@/stores/timeline-filters";
+import { filterTimeline } from "@/utils/timeline";
 
 import { MealTimelineTable } from "./meal-timeline-table";
 import { TimelineFilters } from "./timeline-filters";
@@ -16,6 +18,11 @@ import {
 export function MealTimeline({ meal }: { meal: Meal }) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const steps = useMealStepList(meal.id);
+  const filters = useTimelineFiltersStore.use.filters();
+  const filteredSteps = useMemo(
+    () => filterTimeline(steps ?? [], filters),
+    [steps, filters],
+  );
 
   return (
     <Collapsible onOpenChange={setFiltersOpen} open={filtersOpen}>
@@ -34,7 +41,7 @@ export function MealTimeline({ meal }: { meal: Meal }) {
       </CollapsibleContent>
 
       <div className="hidden md:block">
-        <MealTimelineTable steps={steps} />
+        <MealTimelineTable steps={filteredSteps} />
       </div>
     </Collapsible>
   );
