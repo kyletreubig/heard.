@@ -8,6 +8,7 @@ import { DishBadge } from "./dish-badge";
 import { EquipmentBadge } from "./equipment-badge";
 import { StageBadge } from "./stage-badge";
 import { StepComplete } from "./step-complete";
+import { StepStartAt } from "./step-start-at";
 import {
   Table,
   TableBody,
@@ -84,7 +85,14 @@ export function MealTimelineTable({ steps }: { steps?: Step[] }) {
                 step={step}
               />
             </TableCell>
-            <TableCell>{step.startAt?.toLocaleTimeString()}</TableCell>
+            <TableCell>
+              <StepStartAt
+                onOffsetMinutesChange={(offsetMinutes) =>
+                  updateStep(step.id, { offsetMinutes })
+                }
+                step={step}
+              />
+            </TableCell>
             <TableCell>{step.description}</TableCell>
             <TableCell>
               <DishBadge id={step.dishId} />
