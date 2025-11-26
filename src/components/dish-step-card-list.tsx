@@ -134,6 +134,7 @@ export function DishStepCardList({
                         }
                       }}
                       size="icon"
+                      type="button"
                       variant="outline"
                     >
                       <Minus />
@@ -141,6 +142,7 @@ export function DishStepCardList({
                     <Button
                       onClick={() => equipment.append({ name: "" })}
                       size="icon"
+                      type="button"
                       variant="outline"
                     >
                       <Plus />

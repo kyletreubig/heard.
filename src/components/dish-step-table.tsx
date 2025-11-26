@@ -183,6 +183,7 @@ export function DishStepTable({
                         }
                       }}
                       size="icon"
+                      type="button"
                       variant="outline"
                     >
                       <Minus />
@@ -190,6 +191,7 @@ export function DishStepTable({
                     <Button
                       onClick={() => equipment.append({ name: "" })}
                       size="icon"
+                      type="button"
                       variant="outline"
                     >
                       <Plus />

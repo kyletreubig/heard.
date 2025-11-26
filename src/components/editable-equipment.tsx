@@ -53,17 +53,27 @@ export function EditableEquipment({
             placeholder="None"
             value={item}
           />
-          <Button onClick={handleRemove(index)} size="icon" variant="outline">
+          <Button
+            onClick={handleRemove(index)}
+            size="icon"
+            type="button"
+            variant="outline"
+          >
             <Minus />
           </Button>
-          <Button onClick={handleAppend} size="icon" variant="outline">
+          <Button
+            onClick={handleAppend}
+            size="icon"
+            type="button"
+            variant="outline"
+          >
             <Plus />
           </Button>
         </React.Fragment>
       ))}
 
       <div className="col-span-3 flex gap-2 justify-end">
-        <Button onClick={handleCancel} variant="outline">
+        <Button onClick={handleCancel} type="button" variant="outline">
           Cancel
         </Button>
         <Button onClick={handleCommit}>Save</Button>
