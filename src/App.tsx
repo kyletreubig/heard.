@@ -1,3 +1,5 @@
+import { ChefHat } from "lucide-react";
+
 import { EquipmentList } from "./components/equipment-list";
 import { MealTab } from "./components/meal-tab";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
@@ -9,7 +11,9 @@ function App() {
       defaultValue="meals"
     >
       <div className="mx-2 md:mx-0 flex justify-between items-end">
-        <h1 className="mt-2 flex items-center gap-2">heard.</h1>
+        <h1 className="mt-2 flex items-center gap-2">
+          <ChefHat className="size-10" /> heard.
+        </h1>
         <TabsList>
           <TabsTrigger value="meals">Meals</TabsTrigger>
           <TabsTrigger value="equipment">Equipment</TabsTrigger>
