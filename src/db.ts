@@ -32,7 +32,7 @@ export interface Step {
   delayMinutes: number;
   durationMinutes: number;
   startAt?: Date;
-  completedAt?: Date;
+  completedAt?: Date | null;
 }
 
 export const db = new Dexie("HeardDB") as Dexie & {

@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils";
 import { DishBadge } from "./dish-badge";
 import { EquipmentBadge } from "./equipment-badge";
 import { StageBadge } from "./stage-badge";
-import { Checkbox } from "./ui/checkbox";
-import { Label } from "./ui/label";
+import { StepComplete } from "./step-complete";
 import {
   Table,
   TableBody,
@@ -78,25 +77,12 @@ export function MealTimelineTable({ steps }: { steps?: Step[] }) {
             key={step.id}
           >
             <TableCell>
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  checked={!!step.completedAt}
-                  id={`${step.id}-completed`}
-                  onCheckedChange={() => {
-                    if (!step.completedAt) {
-                      updateStep(step.id, { completedAt: currentTime });
-                    }
-                  }}
-                />
-                <Label
-                  className="hover:cursor-pointer"
-                  htmlFor={`${step.id}-completed`}
-                >
-                  {step.completedAt
-                    ? step.completedAt.toLocaleTimeString()
-                    : "completed"}
-                </Label>
-              </div>
+              <StepComplete
+                onCompleteChange={(completedAt) =>
+                  updateStep(step.id, { completedAt })
+                }
+                step={step}
+              />
             </TableCell>
             <TableCell>{step.startAt?.toLocaleTimeString()}</TableCell>
             <TableCell>{step.description}</TableCell>
