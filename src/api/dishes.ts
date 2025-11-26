@@ -3,10 +3,13 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db, type Dish } from "@/db";
 
 export function useDishList(mealId: number) {
-  return useLiveQuery(
-    () => db.dishes.where("mealId").equals(mealId).sortBy("name"),
-    [mealId],
-  );
+  return useLiveQuery(async () => {
+    const dishes = await db.dishes
+      .where("mealId")
+      .equals(mealId)
+      .sortBy("name");
+    return [...dishes]; // Prevents spurious re-ordering of array (no idea why)
+  }, [mealId]);
 }
 
 export function useDish(dishId: number) {

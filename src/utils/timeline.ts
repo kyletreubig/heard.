@@ -38,14 +38,6 @@ export async function updateDishTimeline(dishId: number, mealDate?: Date) {
       ensureInt(step.delayMinutes) +
       ensureInt(step.offsetMinutes);
     startAt.setMinutes(startAt.getMinutes() - offsetMinutes);
-    console.log(
-      step.id,
-      step.priorStepId,
-      step.description,
-      time,
-      offsetMinutes,
-      startAt,
-    );
     step.startAt = new Date(startAt);
     db.steps.update(step.id, { startAt: step.startAt });
 

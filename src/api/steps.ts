@@ -14,10 +14,13 @@ export function useDishStepList(dishId: number, reverse: boolean = false) {
 }
 
 export function useMealStepList(mealId: number) {
-  return useLiveQuery(
-    () => db.steps.where("mealId").equals(mealId).sortBy("startAt"),
-    [mealId],
-  );
+  return useLiveQuery(async () => {
+    const steps = await db.steps
+      .where("mealId")
+      .equals(mealId)
+      .sortBy("startAt");
+    return [...steps]; // Prevents spurious re-ordering of array (no idea why)
+  }, [mealId]);
 }
 
 export function useStep(stepId: number) {
