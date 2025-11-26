@@ -23,7 +23,11 @@ export function DishRecipeTab({ dish }: { dish: Dish }) {
           />
         </InputGroup>
 
-        <Textarea placeholder="Recipe..." {...form.register("recipeText")} />
+        <Textarea
+          className="min-h-80 resize-y"
+          placeholder="Recipe..."
+          {...form.register("recipeText")}
+        />
 
         <Button
           className="w-full md:w-fit ml-auto"

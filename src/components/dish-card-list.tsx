@@ -101,6 +101,7 @@ export function DishCardList({
               </InputGroup>
 
               <Textarea
+                className="min-h-40 resize-y"
                 placeholder="Recipe..."
                 {...form.register("recipeText")}
               />
