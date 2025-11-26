@@ -62,6 +62,7 @@ export function StepStartAt({
 
         <Input
           onChange={(e) => setTempStartAt(e.target.value)}
+          tabIndex={-1}
           type="datetime-local"
           value={tempStartAt}
         />

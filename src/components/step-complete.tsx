@@ -40,6 +40,7 @@ export function StepComplete({
     if (!step.completedAt) {
       onCompleteChange(new Date());
     }
+    setOpened(false);
   };
 
   const handleUncomplete = () => {
@@ -47,8 +48,8 @@ export function StepComplete({
   };
 
   const handleUpdate = () => {
-    onCompleteChange(new Date(tempCompletedAt));
     setOpened(false);
+    onCompleteChange(new Date(tempCompletedAt));
   };
 
   return (
@@ -67,6 +68,7 @@ export function StepComplete({
 
               <Input
                 onChange={(e) => setTempCompletedAt(e.target.value)}
+                tabIndex={-1}
                 type="datetime-local"
                 value={tempCompletedAt}
               />
